@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openfm-svn] r75 - trunk/src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openfm-svn/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r75%20-%20trunk/src&In-Reply-To=%3C200611291218.kATCItjL016810%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000012.html">
+   <LINK REL="Next"  HREF="000014.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openfm-svn] r75 - trunk/src</H1>
+    <B>php-coder at mail.berlios.de</B> 
+    <A HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r75%20-%20trunk/src&In-Reply-To=%3C200611291218.kATCItjL016810%40sheep.berlios.de%3E"
+       TITLE="[Openfm-svn] r75 - trunk/src">php-coder at mail.berlios.de
+       </A><BR>
+    <I>Wed Nov 29 13:18:55 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000012.html">[Openfm-svn] r74 - trunk
+</A></li>
+        <LI>Next message: <A HREF="000014.html">[Openfm-svn] r76 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: php-coder
+Date: 2006-11-29 13:18:53 +0100 (Wed, 29 Nov 2006)
+New Revision: 75
+
+Modified:
+   trunk/src/common.c
+   trunk/src/openfm.c
+Log:
+- Always use '{' and '}' for single-line body of statement.
+
+No binary change, only code style.
+
+
+Modified: trunk/src/common.c
+===================================================================
+--- trunk/src/common.c	2006-11-29 12:15:39 UTC (rev 74)
++++ trunk/src/common.c	2006-11-29 12:18:53 UTC (rev 75)
+@@ -319,8 +319,9 @@
+ 
+   assert(filename != NULL);
+ 
+-  if (verbose &gt;= 1)
++  if (verbose &gt;= 1) {
+       printf(_(&quot;-&gt; Trying to get statistics for %s file\n&quot;), filename);
++  }
+ 
+   /* get statistics about file */
+   ret = stat(filename, &amp;file_info);
+
+Modified: trunk/src/openfm.c
+===================================================================
+--- trunk/src/openfm.c	2006-11-29 12:15:39 UTC (rev 74)
++++ trunk/src/openfm.c	2006-11-29 12:18:53 UTC (rev 75)
+@@ -324,8 +324,9 @@
+     }
+   }
+ 
+-  if (*verbose &gt;= 1)
++  if (*verbose &gt;= 1) {
+       printf(&quot;-&gt; %s %u\n&quot;, _(&quot;NOTE: Set verbose level to&quot;), *verbose);
++  }
+ 
+   return optind;
+ }
+@@ -500,8 +501,9 @@
+       homedir = user-&gt;pw_dir;
+   }
+ 
+-  if (verbose &gt;= 1)
++  if (verbose &gt;= 1) {
+       printf(&quot;-&gt; %s '%s'\n&quot;, _(&quot;Your home directory is&quot;), homedir);
++  }
+ 
+   /* Allocate memory for path to file with data:
+    * strlen(&quot;/home/coder&quot; + &quot;/&quot; + &quot;finance.db&quot; + &quot;\0&quot;)
+@@ -575,8 +577,9 @@
+ 
+   assert(ofm != NULL);
+ 
+-  if (ofm-&gt;verbose &gt;= 1)
++  if (ofm-&gt;verbose &gt;= 1) {
+       printf(&quot;-&gt; %s (%s)\n&quot;, _(&quot;Open data file&quot;), ofm-&gt;dbfile);
++  }
+ 
+   /* open data file */
+   fp = fopen(ofm-&gt;dbfile, &quot;r&quot;);
+@@ -589,8 +592,9 @@
+   /* free memory for path to data file */
+   free(ofm-&gt;dbfile);
+ 
+-  if (ofm-&gt;verbose &gt;= 1)
++  if (ofm-&gt;verbose &gt;= 1) {
+       printf(&quot;-&gt; %s\n&quot;, _(&quot;Reading data...&quot;));
++  }
+ 
+   curline = calloc(LINE_MAX + 1, sizeof(char));
+   if (curline == NULL) {
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000012.html">[Openfm-svn] r74 - trunk
+</A></li>
+	<LI>Next message: <A HREF="000014.html">[Openfm-svn] r76 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#13">[ date ]</a>
+              <a href="thread.html#13">[ thread ]</a>
+              <a href="subject.html#13">[ subject ]</a>
+              <a href="author.html#13">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openfm-svn">More information about the Openfm-svn
+mailing list</a><br>
+</body></html>

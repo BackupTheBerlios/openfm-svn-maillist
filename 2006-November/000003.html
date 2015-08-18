@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openfm-svn] r65 - trunk/src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openfm-svn/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r65%20-%20trunk/src&In-Reply-To=%3C200611291123.kATBN06p003282%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000002.html">
+   <LINK REL="Next"  HREF="000004.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openfm-svn] r65 - trunk/src</H1>
+    <B>php-coder at BerliOS</B> 
+    <A HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r65%20-%20trunk/src&In-Reply-To=%3C200611291123.kATBN06p003282%40sheep.berlios.de%3E"
+       TITLE="[Openfm-svn] r65 - trunk/src">php-coder at mail.berlios.de
+       </A><BR>
+    <I>Wed Nov 29 12:23:00 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000002.html">[Openfm-svn] r64 - trunk/tests
+</A></li>
+        <LI>Next message: <A HREF="000004.html">[Openfm-svn] r66 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: php-coder
+Date: 2006-11-29 12:23:00 +0100 (Wed, 29 Nov 2006)
+New Revision: 65
+
+Modified:
+   trunk/src/openfm.c
+Log:
+Comments fixes:
+- Unification for descriptions of argv parameter
+- Fixed description for print_version() function
+- Removed one inutile space in comment
+- Removed &quot;This code coverage by test #N&quot; strings
+
+No binary changes.
+
+time out for kvantos@
+
+
+Modified: trunk/src/openfm.c
+===================================================================
+--- trunk/src/openfm.c	2006-11-27 21:46:06 UTC (rev 64)
++++ trunk/src/openfm.c	2006-11-29 11:23:00 UTC (rev 65)
+@@ -136,7 +136,7 @@
+  * setup localization, set default values for base variables and parse
+  * command line arguments and options.
+  *
+- * @param ofm  struct with program settings
++ * @param ofm struct with program settings
+  * @param argc program arguments counter
+  * @param argv list of program arguments
+  **/
+@@ -257,8 +257,8 @@
+  * Print version of program and copyright.
+  *
+  * Function prints version and copyright. Get name of program via first
+- * argument (usually it is argv[0]) and version from \ref VERSION
+- * macros.
++ * argument (usually it is argv[0]) and version from VERSION macros
++ * (which comes from config.h).
+  *
+  * @param progname name of program
+  *
+@@ -284,7 +284,7 @@
+  * then function would quit from program with failure exit code.
+  *
+  * @param argc program arguments counter
+- * @param argv list of arguments of program
++ * @param argv list of program arguments
+  * @param verbose level of verbose
+  *
+  * @return number of first non-option element in argv
+@@ -305,16 +305,12 @@
+         break;
+ 
+       case 'V':
+-        /* Print version of program and exit.
+-         * This option coverage by test #1
+-         **/
++        /* Print version of program and exit */
+         print_version(argv[0]);
+         break;
+ 
+       case 'h':
+-        /* Print help and exit.
+-         * This option coverage by test #2
+-         **/
++        /* Print help and exit */
+         print_help(argv[0]);
+         break;
+ 
+@@ -354,7 +350,7 @@
+  *
+  * @param ofm struct with program settings
+  * @param argc program arguments counter
+- * @param argv list of arguments of program
++ * @param argv list of program arguments
+  * @param start number of first non-option element in argv
+  **/
+ static void
+@@ -585,7 +581,6 @@
+   /* open data file */
+   fp = fopen(ofm-&gt;dbfile, &quot;r&quot;);
+   if (fp == NULL) {
+-      /* This code coverage by test #3 */
+       fprintf(stderr, &quot;%s: %s\n&quot;, _(&quot;Failed to open file&quot;), ofm-&gt;dbfile);
+       perror(&quot;fopen&quot;);
+       exit(EXIT_FAILURE);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000002.html">[Openfm-svn] r64 - trunk/tests
+</A></li>
+	<LI>Next message: <A HREF="000004.html">[Openfm-svn] r66 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openfm-svn">More information about the Openfm-svn
+mailing list</a><br>
+</body></html>

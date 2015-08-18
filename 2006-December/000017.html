@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openfm-svn] r79 - in trunk: . po
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openfm-svn/2006-December/index.html" >
+   <LINK REL="made" HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r79%20-%20in%20trunk%3A%20.%20po&In-Reply-To=%3C200612030449.kB34nBUc030414%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openfm-svn] r79 - in trunk: . po</H1>
+    <B>php-coder at mail.berlios.de</B> 
+    <A HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r79%20-%20in%20trunk%3A%20.%20po&In-Reply-To=%3C200612030449.kB34nBUc030414%40sheep.berlios.de%3E"
+       TITLE="[Openfm-svn] r79 - in trunk: . po">php-coder at mail.berlios.de
+       </A><BR>
+    <I>Sun Dec  3 05:49:11 CET 2006</I>
+    <P><UL>
+        
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#17">[ date ]</a>
+              <a href="thread.html#17">[ thread ]</a>
+              <a href="subject.html#17">[ subject ]</a>
+              <a href="author.html#17">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: php-coder
+Date: 2006-12-03 05:49:07 +0100 (Sun, 03 Dec 2006)
+New Revision: 79
+
+Added:
+   trunk/po/Makefile.am
+Removed:
+   trunk/po/Makefile
+Modified:
+   trunk/Makefile.am
+   trunk/autogen.sh
+   trunk/configure.in
+   trunk/po/
+Log:
+- Connect po/ directory to build process.
+
+Now po file for Russian language will compiles and installs. Need more
+testing and work for improve it.
+
+XXX: mo files always will installed, also when localization disabled.
+
+
+Modified: trunk/Makefile.am
+===================================================================
+--- trunk/Makefile.am	2006-11-30 18:30:47 UTC (rev 78)
++++ trunk/Makefile.am	2006-12-03 04:49:07 UTC (rev 79)
+@@ -1,4 +1,4 @@
+-SUBDIRS = src tests
++SUBDIRS = po src tests
+ 
+ test:
+ 	$(MAKE) -C $(top_builddir)/tests test
+
+Modified: trunk/autogen.sh
+===================================================================
+--- trunk/autogen.sh	2006-11-30 18:30:47 UTC (rev 78)
++++ trunk/autogen.sh	2006-12-03 04:49:07 UTC (rev 79)
+@@ -4,6 +4,6 @@
+ 
+ aclocal &amp;&amp; \
+ autoheader -Wall &amp;&amp; \
+-automake -Wall --foreign --add-missing &amp;&amp; \
++automake -Wall -Wno-portability --foreign --add-missing &amp;&amp; \
+ autoconf -Wall
+ 
+
+Modified: trunk/configure.in
+===================================================================
+--- trunk/configure.in	2006-11-30 18:30:47 UTC (rev 78)
++++ trunk/configure.in	2006-12-03 04:49:07 UTC (rev 79)
+@@ -38,5 +38,5 @@
+    CFLAGS=&quot;$CFLAGS -Werror&quot;
+ fi
+ 
+-AC_CONFIG_FILES(Makefile src/Makefile tests/Makefile)
++AC_CONFIG_FILES(Makefile src/Makefile tests/Makefile po/Makefile)
+ AC_OUTPUT
+
+
+Property changes on: trunk/po
+___________________________________________________________________
+Name: svn:ignore
+   - *.mo
+*.pot
+
+   + Makefile
+Makefile.in
+*.mo
+*.pot
+
+
+Deleted: trunk/po/Makefile
+===================================================================
+--- trunk/po/Makefile	2006-11-30 18:30:47 UTC (rev 78)
++++ trunk/po/Makefile	2006-12-03 04:49:07 UTC (rev 79)
+@@ -1,23 +0,0 @@
+-PO = ru.po
+-MO = $(patsubst %.po,%.mo,$(PO))
+-POT= openfm.pot
+-
+-$(MO): $(PO)
+-
+-%.mo: %.po
+-	msgfmt -c $&lt; -o $@
+-
+-clean:
+-	-rm -fv $(MO) *~
+-
+-update: $(PO) $(POT)
+-	msgmerge -U $&lt; $(POT)
+-
+-install: $(MO)
+-	install -pD -m 644 $&lt; $(DESTDIR)/usr/share/locale/$(patsubst %.mo,%,$(MO))/LC_MESSAGES/openfm.mo
+-
+-remove: $(MO)
+-	-rm -fv $(DESTDIR)/usr/share/locale/$(patsubst %.mo,%,$(MO))/LC_MESSAGES/openfm.mo
+-
+-.PHONY: clean update install remove
+-
+
+Added: trunk/po/Makefile.am
+===================================================================
+--- trunk/po/Makefile.am	2006-11-30 18:30:47 UTC (rev 78)
++++ trunk/po/Makefile.am	2006-12-03 04:49:07 UTC (rev 79)
+@@ -0,0 +1,18 @@
++LANGUAGES = ru
++
++TARGETS = $(addsuffix .mo,$(LANGUAGES))
++
++$(TARGETS): %.mo: %.po
++	msgfmt -c $&lt; -o $@
++
++all-local: $(TARGETS)
++
++install-data-local: $(TARGETS)
++	for lang in $(LANGUAGES); \
++	do \
++	$(mkinstalldirs) $(DESTDIR)/usr/share/locale/$$lang/LC_MESSAGES; \
++	$(INSTALL_DATA) $${lang}.mo $(DESTDIR)/usr/share/locale/$$lang/LC_MESSAGES/openfm.mo; \
++	done
++
++clean-local:
++	$(RM) $(TARGETS)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#17">[ date ]</a>
+              <a href="thread.html#17">[ thread ]</a>
+              <a href="subject.html#17">[ subject ]</a>
+              <a href="author.html#17">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openfm-svn">More information about the Openfm-svn
+mailing list</a><br>
+</body></html>

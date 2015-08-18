@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openfm-svn] r62 - trunk/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openfm-svn/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r62%20-%20trunk/tests&In-Reply-To=%3C200611272043.kARKhejH028867%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000001.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openfm-svn] r62 - trunk/tests</H1>
+    <B>php-coder at mail.berlios.de</B> 
+    <A HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r62%20-%20trunk/tests&In-Reply-To=%3C200611272043.kARKhejH028867%40sheep.berlios.de%3E"
+       TITLE="[Openfm-svn] r62 - trunk/tests">php-coder at mail.berlios.de
+       </A><BR>
+    <I>Mon Nov 27 21:43:40 CET 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000001.html">[Openfm-svn] r63 - trunk/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: php-coder
+Date: 2006-11-27 21:43:16 +0100 (Mon, 27 Nov 2006)
+New Revision: 62
+
+Added:
+   trunk/tests/4.in
+   trunk/tests/4.out
+Modified:
+   trunk/tests/run_tests.sh
+Log:
+- Added test for empty datafile
+
+ok kvantos@
+
+
+Added: trunk/tests/4.in
+===================================================================
+
+Added: trunk/tests/4.out
+===================================================================
+--- trunk/tests/4.out	2006-11-10 16:12:30 UTC (rev 61)
++++ trunk/tests/4.out	2006-11-27 20:43:16 UTC (rev 62)
+@@ -0,0 +1,5 @@
++Finance statistics:
++Profit:      0.00
++Costs:       0.00
++Balance:     0.00
++rc=0
+
+Modified: trunk/tests/run_tests.sh
+===================================================================
+--- trunk/tests/run_tests.sh	2006-11-10 16:12:30 UTC (rev 61)
++++ trunk/tests/run_tests.sh	2006-11-27 20:43:16 UTC (rev 62)
+@@ -93,6 +93,10 @@
+       print_message &quot;absent datafile&quot;
+       (HOME=. $OPENFM 2&gt;&amp;1; echo rc=$?) &gt;&quot;$1.txt&quot;
+       ;;
++    4)
++      print_message &quot;empty datafile&quot;
++      ($OPENFM &quot;$1.in&quot;; echo rc=$?) &gt;&quot;$1.txt&quot;
++      ;;
+     *)
+       echo &quot;Wrong number for test: $1&quot; &gt;&amp;2
+       exit 3
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000001.html">[Openfm-svn] r63 - trunk/src
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#0">[ date ]</a>
+              <a href="thread.html#0">[ thread ]</a>
+              <a href="subject.html#0">[ subject ]</a>
+              <a href="author.html#0">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openfm-svn">More information about the Openfm-svn
+mailing list</a><br>
+</body></html>

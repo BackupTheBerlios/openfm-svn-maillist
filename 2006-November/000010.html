@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Openfm-svn] r72 - trunk/src
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/openfm-svn/2006-November/index.html" >
+   <LINK REL="made" HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r72%20-%20trunk/src&In-Reply-To=%3C200611291210.kATCAUch003899%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   <LINK REL="Next"  HREF="000011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Openfm-svn] r72 - trunk/src</H1>
+    <B>php-coder at mail.berlios.de</B> 
+    <A HREF="mailto:openfm-svn%40lists.berlios.de?Subject=Re%3A%20%5BOpenfm-svn%5D%20r72%20-%20trunk/src&In-Reply-To=%3C200611291210.kATCAUch003899%40sheep.berlios.de%3E"
+       TITLE="[Openfm-svn] r72 - trunk/src">php-coder at mail.berlios.de
+       </A><BR>
+    <I>Wed Nov 29 13:10:30 CET 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[Openfm-svn] r71 - trunk/src
+</A></li>
+        <LI>Next message: <A HREF="000011.html">[Openfm-svn] r73 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: php-coder
+Date: 2006-11-29 13:10:28 +0100 (Wed, 29 Nov 2006)
+New Revision: 72
+
+Modified:
+   trunk/src/openfm.c
+Log:
+- Replace typedef for struct to struct
+  (setttings_t -&gt; struct settings).
+
+No functional change.
+
+
+Modified: trunk/src/openfm.c
+===================================================================
+--- trunk/src/openfm.c	2006-11-29 12:07:14 UTC (rev 71)
++++ trunk/src/openfm.c	2006-11-29 12:10:28 UTC (rev 72)
+@@ -110,19 +110,19 @@
+  * Contains program settings which will initial in \ref
+  * analyze_arguments() function.
+  **/
+-typedef struct {
++struct settings {
+   actions      act;     /**&lt; see description for \ref actions */
+   arguments    arg;     /**&lt; see description for \ref arguments */
+   char        *dbfile;  /**&lt; full path to data file */
+   unsigned int verbose; /**&lt; level of verbose */
+-} settings_t;
++};
+ 
+ 
+ /* Prototypes */
+ static  int parse_cmd_line(int argc, char **argv, unsigned int *verbose);
+-static void analyze_arguments(settings_t *ofm, int argc, char **argv, int start);
++static void analyze_arguments(struct settings *ofm, int argc, char **argv, int start);
+ static char *get_path_to_datafile(unsigned int verbose);
+-static void read_and_parse_datafile(const settings_t *ofm);
++static void read_and_parse_datafile(const struct settings *ofm);
+ 
+ #ifdef NLS
+ static void turn_on_localization(void);
+@@ -141,7 +141,7 @@
+  * @param argv list of program arguments
+  **/
+ static void
+-prepare(settings_t *ofm, int argc, char **argv)
++prepare(struct settings *ofm, int argc, char **argv)
+ {
+   /* temporary variable. Used only as routine between parse_cmd_line()
+    * and analyze_arguments()
+@@ -190,7 +190,7 @@
+ main(int argc, char **argv)
+ {
+  /* program settings which will get from command line */
+- settings_t ofm;
++ struct settings ofm;
+ 
+  ofm.act     = NONE; /* no actions should be perform by default */
+  ofm.verbose = 0;    /* no verbose by default */
+@@ -354,7 +354,7 @@
+  * @param start number of first non-option element in argv
+  **/
+ static void
+-analyze_arguments(settings_t *ofm, int argc, char **argv, int start)
++analyze_arguments(struct settings *ofm, int argc, char **argv, int start)
+ {
+ 
+   assert(ofm != NULL);
+@@ -550,7 +550,7 @@
+  * @param ofm struct with program settings
+  **/
+ static void
+-read_and_parse_datafile(const settings_t *ofm)
++read_and_parse_datafile(const struct settings *ofm)
+ {
+   FILE *fp;
+   int   ret; /* for storage fclose() return value */
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[Openfm-svn] r71 - trunk/src
+</A></li>
+	<LI>Next message: <A HREF="000011.html">[Openfm-svn] r73 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/openfm-svn">More information about the Openfm-svn
+mailing list</a><br>
+</body></html>
